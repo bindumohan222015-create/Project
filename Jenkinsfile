@@ -11,12 +11,6 @@ pipeline {
 
    stage('clean') {
       steps {
-          dir('Amazon'){
-           sh 'mvn clean'
-          }
-       }
-   }
-
    stage('compile') {
       steps {
           dir('Amazon'){
