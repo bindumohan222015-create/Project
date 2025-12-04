@@ -1,39 +1,43 @@
-pipeline {
-  agent any
-
-  stages {
-   
-   stage('clone project') {
-      steps {
-           git branch:'main' , url:'https://github.com/bindumohan222015-create/Project'
-       }
-   }
-
-   stage('clean') {
-      steps {
-   stage('compile') {
-      steps {
-          dir('Amazon'){
-           sh 'mvn compile'
-       
-          }
-          }
-   }
-
-   stage('test') {
-      steps {
-          dir('Amazon'){
-           sh 'mvn test'
-          }
-       }
-   }
-
-   stage('build') {
-      steps {
-          dir('Amazon'){
-           sh 'mvn clean install'
-          }
-          }
-   }
+pipeline
+{
+    agent any
+    
+     environment {
+   git_branch = "main"
+   git_url = "https://github.com/bindumohan222015-create/Project"
 }
+    stages 
+    {
+        stage('clone a project'){
+            steps
+            {
+                git branch : "${git_branch}" , url : "${git_url}"
+            }
+        }
+        stage('clean'){
+            steps{
+                sh 'mvn clean'
+            }
+        }
+          stage('compile'){
+            steps{
+                sh 'mvn compile'
+            }
+        }
+          stage('test'){
+            steps{
+                sh 'mvn test'
+            }
+        }
+          stage('build'){
+            steps{
+                sh 'mvn clean install'
+            }
+        }
+          stage('deploy'){
+            steps{
+                echo "deploy the project in to the webserver"
+            }
+        }
+    }
 }
